@@ -63,6 +63,15 @@
             font-weight: 300;
             color: #95928e;
             margin: 40px auto;
+            position: relative;
+        }
+
+        .box h2 small {
+            position: absolute;
+            font-size: 19px;
+            top: 3px;
+            color: #bdbab7;
+            margin-left: 3px;
         }
 
         .box .home-icon {
@@ -156,7 +165,7 @@
                             `<div class="grid-item">
                             <h1>${apiResponse.location.name}</h1>
                             <div class="item">
-                                <h2>${dayCondition} ${apiResponse.current.temperature}&#8451;</h2>
+                                <h2>${dayCondition} ${apiResponse.current.temperature}<small>&#8451;</small></h2>
                                 <div class="home-icon">${homeIcon}</div>
                             </div>
                         </div>`;
