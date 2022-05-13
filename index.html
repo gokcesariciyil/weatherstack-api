@@ -36,7 +36,6 @@
 
         .box {
             width: 200px;
-            height: 200px;
             text-align: center;
             margin: -100px 20px 0;
         }
@@ -45,20 +44,25 @@
             width: 100%;
             height: 100%;
             padding-top: 22px;
-            background: #ededed;
-            -webkit-box-shadow: 6px 6px 16px -6px rgba(0, 0, 0, 0.27);
-            -moz-box-shadow: 6px 6px 16px -6px rgba(0, 0, 0, 0.27);
-            box-shadow: 6px 6px 16px -6px rgba(0, 0, 0, 0.27);
+            background: #f5f5f5;
+            -webkit-box-shadow: 6px 6px 11px -8px rgb(0 0 0 / 10%);
+            -moz-box-shadow: 6px 6px 11px -8px rgb(0 0 0 / 10%);
+            box-shadow: 6px 6px 11px -8px rgb(0 0 0 / 10%);
+            background: rgb(248 240 232);
+            background: linear-gradient(0deg, rgb(248 240 232) 0%, rgba(245, 245, 245, 1) 32%, rgba(245, 245, 245, 1) 100%);
         }
 
         .box h1 {
-            font-size: 29px;
+            font-size: 30px;
             font-weight: 300;
+            color: #afaaa6;
         }
 
         .box h2 {
-            font-size: 30px;
+            font-size: 33px;
             font-weight: 300;
+            color: #95928e;
+            margin: 40px auto;
         }
 
         .box .home-icon {
@@ -70,6 +74,9 @@
             text-align: center;
             margin: auto;
             font-size: 31px;
+            -webkit-box-shadow: 0 -3px 10px -1px rgb(114 74 0 / 15%);
+            -moz-box-shadow: 0 -3px 10px -1px rgb(114 74 0 / 15%);
+            box-shadow: 0 -3px 10px -1px rgb(114 74 0 / 15%);
         }
     </style>
 </head>
@@ -113,56 +120,56 @@
          * */
         function getWeather(cityName, domWrapper) {
             axios.get('http://api.weatherstack.com/current', {
-                params: {
-                    access_key: weatherStackAccessKey,
-                    query: cityName
-                }
-            })
-            .then(response => {
-                if (!response.data.error) {
-                    const apiResponse = response.data;
-                    console.log(apiResponse);
-
-                    var homeIcon = '';
-                    if (apiResponse.current.temperature < 15) {
-                        homeIcon = '<i class="fa-solid fa-house-chimney"></i>'
-                    } else {
-                        homeIcon = '<i class="fa-solid fa-person-walking"></i>'
+                    params: {
+                        access_key: weatherStackAccessKey,
+                        query: cityName
                     }
+                })
+                .then(response => {
+                    if (!response.data.error) {
+                        const apiResponse = response.data;
+                        console.log(apiResponse);
 
-                    var dayCondition = '';
-                    if (apiResponse.current.weather_code == 116) {
-                        dayCondition = '<i class="fa-solid fa-cloud-sun"></i>'
-                    } else if (apiResponse.current.weather_code == 119) {
-                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                    } else if (apiResponse.current.weather_code == 122) {
-                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                    } else if (apiResponse.current.weather_code == 122) {
-                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                    } else if (apiResponse.current.weather_code > 263) {
-                        dayCondition = '<i class="fa-solid fa-umbrella"></i>'
-                    } else {
-                        dayCondition = '<i class="fa-solid fa-sun"></i>'
-                    }
+                        var homeIcon = '';
+                        if (apiResponse.current.temperature < 15) {
+                            homeIcon = '<i class="fa-solid fa-house-chimney"></i>'
+                        } else {
+                            homeIcon = '<i class="fa-solid fa-person-walking"></i>'
+                        }
 
-                    document.getElementById(domWrapper).innerHTML =
-                        `<div class="grid-item">
+                        var dayCondition = '';
+                        if (apiResponse.current.weather_code == 116) {
+                            dayCondition = '<i class="fa-solid fa-cloud-sun"></i>'
+                        } else if (apiResponse.current.weather_code == 119) {
+                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                        } else if (apiResponse.current.weather_code == 122) {
+                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                        } else if (apiResponse.current.weather_code == 122) {
+                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                        } else if (apiResponse.current.weather_code > 263) {
+                            dayCondition = '<i class="fa-solid fa-umbrella"></i>'
+                        } else {
+                            dayCondition = '<i class="fa-solid fa-sun"></i>'
+                        }
+
+                        document.getElementById(domWrapper).innerHTML =
+                            `<div class="grid-item">
                             <h1>${apiResponse.location.name}</h1>
                             <div class="item">
-                                <h2>${dayCondition} ${apiResponse.current.temperature}℃</h2>
+                                <h2>${dayCondition} ${apiResponse.current.temperature}&#8451;</h2>
                                 <div class="home-icon">${homeIcon}</div>
                             </div>
                         </div>`;
 
-                } else {
-                    console.log(
-                        `Response error: code: ${response.data.error.code}, info: ${response.data.error.info}`
+                    } else {
+                        console.log(
+                            `Response error: code: ${response.data.error.code}, info: ${response.data.error.info}`
                         )
-                    alert(response.data.error.info)
-                }
-            }).catch(error => {
-                console.error("An error occurred: ", error);
-            });
+                        alert(response.data.error.info)
+                    }
+                }).catch(error => {
+                    console.error("An error occurred: ", error);
+                });
         }
 
         /*
