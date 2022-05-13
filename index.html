@@ -129,56 +129,56 @@
          * */
         function getWeather(cityName, domWrapper) {
             axios.get('http://api.weatherstack.com/current', {
-                    params: {
-                        access_key: weatherStackAccessKey,
-                        query: cityName
-                    }
-                })
-                .then(response => {
-                    if (!response.data.error) {
-                        const apiResponse = response.data;
-                        console.log(apiResponse);
+                params: {
+                    access_key: weatherStackAccessKey,
+                    query: cityName
+                }
+            })
+            .then(response => {
+                if (!response.data.error) {
+                    const apiResponse = response.data;
+                    console.log(apiResponse);
 
-                        var homeIcon = '';
-                        if (apiResponse.current.temperature < 15) {
-                            homeIcon = '<i class="fa-solid fa-house-chimney"></i>'
-                        } else {
-                            homeIcon = '<i class="fa-solid fa-person-walking"></i>'
-                        }
-
-                        var dayCondition = '';
-                        if (apiResponse.current.weather_code == 116) {
-                            dayCondition = '<i class="fa-solid fa-cloud-sun"></i>'
-                        } else if (apiResponse.current.weather_code == 119) {
-                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                        } else if (apiResponse.current.weather_code == 122) {
-                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                        } else if (apiResponse.current.weather_code == 122) {
-                            dayCondition = '<i class="fa-solid fa-cloud"></i>'
-                        } else if (apiResponse.current.weather_code > 263) {
-                            dayCondition = '<i class="fa-solid fa-umbrella"></i>'
-                        } else {
-                            dayCondition = '<i class="fa-solid fa-sun"></i>'
-                        }
-
-                        document.getElementById(domWrapper).innerHTML =
-                            `<div class="grid-item">
-                            <h1>${apiResponse.location.name}</h1>
-                            <div class="item">
-                                <h2>${dayCondition} ${apiResponse.current.temperature}<small>&#8451;</small></h2>
-                                <div class="home-icon">${homeIcon}</div>
-                            </div>
-                        </div>`;
-
+                    var homeIcon = '';
+                    if (apiResponse.current.temperature < 15) {
+                        homeIcon = '<i class="fa-solid fa-house-chimney"></i>'
                     } else {
-                        console.log(
-                            `Response error: code: ${response.data.error.code}, info: ${response.data.error.info}`
-                        )
-                        alert(response.data.error.info)
+                        homeIcon = '<i class="fa-solid fa-person-walking"></i>'
                     }
-                }).catch(error => {
-                    console.error("An error occurred: ", error);
-                });
+
+                    var dayCondition = '';
+                    if (apiResponse.current.weather_code == 116) {
+                        dayCondition = '<i class="fa-solid fa-cloud-sun"></i>'
+                    } else if (apiResponse.current.weather_code == 119) {
+                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                    } else if (apiResponse.current.weather_code == 122) {
+                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                    } else if (apiResponse.current.weather_code == 122) {
+                        dayCondition = '<i class="fa-solid fa-cloud"></i>'
+                    } else if (apiResponse.current.weather_code > 263) {
+                        dayCondition = '<i class="fa-solid fa-umbrella"></i>'
+                    } else {
+                        dayCondition = '<i class="fa-solid fa-sun"></i>'
+                    }
+
+                    document.getElementById(domWrapper).innerHTML =
+                    `<div class="grid-item">
+                        <h1>${apiResponse.location.name}</h1>
+                        <div class="item">
+                            <h2>${dayCondition} ${apiResponse.current.temperature}<small>&#8451;</small></h2>
+                            <div class="home-icon">${homeIcon}</div>
+                        </div>
+                    </div>`;
+
+                } else {
+                    console.log(
+                        `Response error: code: ${response.data.error.code}, info: ${response.data.error.info}`
+                    )
+                    alert(response.data.error.info)
+                }
+            }).catch(error => {
+                console.error("An error occurred: ", error);
+            });
         }
 
         /*
